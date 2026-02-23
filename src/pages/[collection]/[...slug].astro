@@ -2,23 +2,31 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
 
-const collections = ['news','anniversari','compleanni'] as const;
-
 export async function getStaticPaths() {
-  const all = await Promise.all(collections.map(async (c) => {
-    const entries = await getCollection(c);
-    return entries.map((e) => ({
-      params: { collection: c, slug: e.slug.split('/') },
-      props: { collection: c, entry: e },
-    }));
-  }));
+  const collections = ["news", "anniversari", "compleanni"]; // <- qui dentro = sempre definito
+
+  const all = await Promise.all(
+    collections.map(async (c) => {
+      const entries = await getCollection(c);
+      return entries.map((e) => ({
+        params: { collection: c, slug: e.slug.split("/") }, // slug deve essere array per [...slug]
+        props: { collection: c, entry: e },
+      }));
+    })
+  );
+
   return all.flat();
 }
 
 const { entry, collection } = Astro.props;
 const { Content } = await render(entry);
+
 const d = new Date(entry.data.date);
-const dateStr = d.toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
+const dateStr = d.toLocaleDateString("it-IT", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 
 const pageTitle = `${entry.data.title} | SDAC Magazine`;
 ---
