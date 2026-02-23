@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+const collections = ['news','anniversari','compleanni'] as const;
+
+export async function getStaticPaths() {
+  const all = await Promise.all(collections.map(async (c) => {
+    const entries = await getCollection(c);
+    return entries.map((e) => ({
+      params: { collection: c, slug: e.slug },
+      props: { collection: c, entry: e },
+    }));
+  }));
+  return all.flat();
+}
+
+const { entry, collection } = Astro.props;
+const { Content } = await render(entry);
+const d = new Date(entry.data.date);
+const dateStr = d.toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const pageTitle = `${entry.data.title} | SDAC Magazine`;
+---
+<BaseLayout title={pageTitle} current={collection}>
+  <article class="article">
+    <div class="meta"><span class="badge">{collection}</span> · {dateStr} · {entry.data.author}</div>
+    <h1>{entry.data.title}</h1>
+    {entry.data.excerpt ? <p class="meta">{entry.data.excerpt}</p> : null}
+
+    <img class="cover" src={entry.data.cover_image ?? '/images/uploads/placeholder.jpg'} alt="" loading="lazy" />
+
+    <div class="prose" style="margin-top:16px">
+      <Content />
+    </div>
+
+    <p class="meta" style="margin-top:18px">
+      <a href={`/${collection}`}>← Torna a {collection}</a>
+    </p>
+  </article>
+</BaseLayout>

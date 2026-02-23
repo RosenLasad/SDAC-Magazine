@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+const { entry, collection } = Astro.props as {
+  entry: CollectionEntry<'news'|'anniversari'|'compleanni'>;
+  collection: 'news'|'anniversari'|'compleanni';
+};
+
+const url = `/${collection}/${entry.slug}`;
+const { title, date, author, excerpt, cover_image } = entry.data;
+const d = new Date(date);
+const dateStr = d.toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<a class="item" href={url}>
+  <div class="hero">
+    <img src={cover_image ?? '/images/uploads/placeholder.jpg'} alt="" loading="lazy" />
+    <div>
+      <div class="meta"><span class="badge">{collection}</span> · {dateStr} · {author}</div>
+      <div style="font-size:16px; font-weight:700; margin-top:6px">{title}</div>
+      {excerpt ? <div class="meta" style="margin-top:6px">{excerpt}</div> : null}
+    </div>
+  </div>
+</a>

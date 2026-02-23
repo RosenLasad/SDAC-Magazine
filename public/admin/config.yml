@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: simple
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+site_url: "https://www.sdacmagazine.com"
+
+collections:
+  - name: "news"
+    label: "News"
+    folder: "src/content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titolo", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "Autore", name: "author", widget: "string", required: false }
+      - { label: "Estratto", name: "excerpt", widget: "text", required: false }
+      - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
+      - { label: "Tag", name: "tags", widget: "list", required: false }
+      - { label: "Testo", name: "body", widget: "markdown" }
+
+  - name: "anniversari"
+    label: "Anniversari"
+    folder: "src/content/anniversari"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titolo", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "Autore", name: "author", widget: "string", required: false }
+      - { label: "Estratto", name: "excerpt", widget: "text", required: false }
+      - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
+      - { label: "Tag", name: "tags", widget: "list", required: false }
+      - { label: "Testo", name: "body", widget: "markdown" }
+
+  - name: "compleanni"
+    label: "Compleanni"
+    folder: "src/content/compleanni"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titolo", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "Autore", name: "author", widget: "string", required: false }
+      - { label: "Estratto", name: "excerpt", widget: "text", required: false }
+      - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
+      - { label: "Tag", name: "tags", widget: "list", required: false }
+      - { label: "Testo", name: "body", widget: "markdown" }

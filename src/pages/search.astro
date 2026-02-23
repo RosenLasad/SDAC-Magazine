@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const q = Astro.url.searchParams.get('q') ?? '';
+---
+<BaseLayout title="Cerca | SDAC Magazine">
+  <div class="card">
+    <div class="pad">
+      <h2>Ricerca</h2>
+      <p class="meta">Cerca su tutto il sito (titoli + tag). Non è Google, ma almeno non ti profila come un maniaco.</p>
+
+      <div style="margin:12px 0">
+        <input id="q" value={q} placeholder="Cerca…" style="width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);" />
+      </div>
+
+      <ul class="list" id="results"></ul>
+      <p class="meta" id="count" style="margin-top:10px"></p>
+    </div>
+  </div>
+
+  <script type="module">
+    const input = document.getElementById('q');
+    const results = document.getElementById('results');
+    const count = document.getElementById('count');
+
+    const data = await fetch('/search.json').then(r => r.json());
+
+    function render(q){
+      q = (q || '').toLowerCase().trim();
+      results.innerHTML = '';
+      const hits = data.filter(x => {
+        const t = (x.title || '').toLowerCase();
+        const tags = (x.tags || []).join(' ').toLowerCase();
+        return q === '' || t.includes(q) || tags.includes(q);
+      }).slice(0, 50);
+
+      for (const x of hits){
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <a class="item" href="/${x.collection}/${x.slug}">
+            <div class="hero">
+              <img src="${x.cover_image}" alt="" loading="lazy" />
+              <div>
+                <div class="meta"><span class="badge">${x.collection}</span> · ${new Date(x.date).toLocaleDateString('it-IT')}</div>
+                <div style="font-size:16px; font-weight:700; margin-top:6px">${x.title}</div>
+                ${x.excerpt ? `<div class="meta" style="margin-top:6px">${x.excerpt}</div>` : ``}
+              </div>
+            </div>
+          </a>
+        `;
+        results.appendChild(li);
+      }
+      count.textContent = `${hits.length} risultati` + (hits.length === 50 ? ' (mostrati i primi 50)' : '');
+    }
+
+    render(input.value);
+    input.addEventListener('input', e => render(e.target.value));
+  </script>
+</BaseLayout>

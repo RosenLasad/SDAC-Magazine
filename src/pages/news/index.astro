@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getCollection } from "astro:content";
+
+const entries = (await getCollection('news')).sort((a,b) => +new Date(b.data.date) - +new Date(a.data.date));
+---
+<BaseLayout title="News | SDAC Magazine" current="news">
+  <div class="card">
+    <div class="pad">
+      <h2>News</h2>
+      <p class="meta">Tutte le news in ordine cronologico (le più recenti sopra, come vuole la civiltà).</p>
+
+      <div style="margin:12px 0">
+        <input id="filter" placeholder="Filtra in questa pagina…" style="width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);" />
+      </div>
+
+      <ul class="list" id="list">
+        {entries.map((e) => (
+          <li data-title={e.data.title.toLowerCase()} data-tags={(e.data.tags ?? []).join(' ').toLowerCase()}>
+            <ArticleCard entry={e} collection="news" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('filter');
+    const items = [...document.querySelectorAll('#list > li')];
+    input?.addEventListener('input', (e) => {
+      const q = (e.target.value || '').toLowerCase().trim();
+      for (const li of items) {
+        const t = li.dataset.title || '';
+        const tags = li.dataset.tags || '';
+        li.style.display = (q === '' || t.includes(q) || tags.includes(q)) ? '' : 'none';
+      }
+    });
+  </script>
+</BaseLayout>

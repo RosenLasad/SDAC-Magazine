@@ -1,0 +1,27 @@
+---
+const { current = '' } = Astro.props;
+const links = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/news', label: 'News', key: 'news' },
+  { href: '/anniversari', label: 'Anniversari', key: 'anniversari' },
+  { href: '/compleanni', label: 'Compleanni', key: 'compleanni' },
+];
+---
+<header class="topbar">
+  <div class="container">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>SDAC Magazine</h1>
+    </div>
+
+    <nav class="navrow" aria-label="Categorie">
+      {links.map((l) => (
+        <a class="btn" href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>
+      ))}
+      <form class="search" action="/search" role="search" aria-label="Ricerca nel sito">
+        <span class="icon" aria-hidden="true">🔎</span>
+        <input name="q" type="search" placeholder="Cerca titoli, nomi, tag…" />
+      </form>
+    </nav>
+  </div>
+</header>
