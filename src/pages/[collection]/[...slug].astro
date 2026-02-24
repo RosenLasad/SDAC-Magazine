@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const collections = ["news", "anniversari", "compleanni"]; // <- qui dentro = sempre definito
+  const collections = ["news", "anniversari", "compleanni"];
 
   const all = await Promise.all(
     collections.map(async (c) => {
@@ -29,21 +29,124 @@ const dateStr = d.toLocaleDateString("it-IT", {
 });
 
 const pageTitle = `${entry.data.title} | SDAC Magazine`;
+
+// Cover options (nuovi campi)
+const coverSrc = entry.data.cover_image ?? null;
+const coverAlt = entry.data.cover_alt ?? entry.data.title ?? "";
+const coverFit = entry.data.cover_fit ?? "cover";
+
+const posMap = {
+  "center": "50% 50%",
+  "top": "50% 0%",
+  "bottom": "50% 100%",
+  "left": "0% 50%",
+  "right": "100% 50%",
+  "top-left": "0% 0%",
+  "top-right": "100% 0%",
+  "bottom-left": "0% 100%",
+  "bottom-right": "100% 100%",
+};
+
+const coverPositionKey = entry.data.cover_position ?? "center";
+const coverPosition = posMap[coverPositionKey] ?? "50% 50%";
+
+// Gallery (nuovo campo)
+const gallery = entry.data.gallery ?? [];
 ---
 <BaseLayout title={pageTitle} current={collection}>
   <article class="article">
-    <div class="meta"><span class="badge">{collection}</span> · {dateStr} · {entry.data.author}</div>
+    <div class="meta">
+      <span class="badge">{collection}</span> · {dateStr} · {entry.data.author}
+      {entry.data.featured ? <span class="badge featured">In evidenza</span> : null}
+    </div>
+
     <h1>{entry.data.title}</h1>
     {entry.data.excerpt ? <p class="meta">{entry.data.excerpt}</p> : null}
 
-    <img class="cover" src={entry.data.cover_image ?? '/images/uploads/placeholder.jpg'} alt="" loading="lazy" />
+    {coverSrc ? (
+      <img
+        class="cover"
+        src={coverSrc}
+        alt={coverAlt}
+        loading="lazy"
+        style={`object-fit:${coverFit}; object-position:${coverPosition};`}
+      />
+    ) : null}
 
     <div class="prose" style="margin-top:16px">
       <Content />
     </div>
 
+    {gallery.length ? (
+      <section class="gallery" aria-label="Gallery">
+        {gallery.map((g) => (
+          <figure class={`gitem ${g.layout ?? "full"} ${g.size ?? "md"}`}>
+            <img src={g.image} alt={g.alt ?? ""} loading="lazy" />
+            {g.caption ? <figcaption>{g.caption}</figcaption> : null}
+          </figure>
+        ))}
+      </section>
+    ) : null}
+
     <p class="meta" style="margin-top:18px">
       <a href={`/${collection}`}>← Torna a {collection}</a>
     </p>
   </article>
+
+  <style>
+    .cover {
+      width: 100%;
+      max-height: 420px;
+      height: auto;
+      border-radius: 14px;
+      background: #eee;
+      display: block;
+    }
+
+    .badge.featured {
+      margin-left: 8px;
+    }
+
+    .gallery {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .gitem {
+      margin: 0;
+    }
+
+    .gitem img {
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      display: block;
+      background: #eee;
+    }
+
+    .gitem figcaption {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-top: 8px;
+      line-height: 1.35;
+    }
+
+    /* Layout (non “wrap col testo”, ma allineamento pulito) */
+    .gitem.full { align-self: center; max-width: 980px; width: 100%; }
+    .gitem.left { align-self: flex-start; }
+    .gitem.right { align-self: flex-end; }
+
+    /* Size */
+    .gitem.sm { max-width: 420px; width: 100%; }
+    .gitem.md { max-width: 620px; width: 100%; }
+    .gitem.lg { max-width: 980px; width: 100%; }
+
+    @media (max-width: 640px) {
+      .cover { max-height: 320px; }
+      .gitem.left, .gitem.right { align-self: center; }
+      .gitem.sm, .gitem.md, .gitem.lg { max-width: 100%; }
+    }
+  </style>
 </BaseLayout>
