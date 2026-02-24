@@ -5,9 +5,13 @@ author: Alessandro
 excerpt: Il primo articolo di SDAC Magazine, tra le NEWS.
 cover_image: /images/uploads/sdac-logo-orizz-nero-su-bianco.jpg
 cover_alt: Logo SDAC
-cover_fit: contain
+cover_fit: cover
 cover_position: center
-featured: false
-gallery: []
+featured: true
+gallery:
+  - layout: left
+    size: md
+    image: /images/uploads/sdac001.jpg
+    caption: Foto sul set
 ---
 Questo è il testo del primo articolo dello SDAC Magazine.
