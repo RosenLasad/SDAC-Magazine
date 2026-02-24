@@ -4,9 +4,45 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>SDAC Magazine Admin</title>
+
+    <!-- Netlify Identity widget (serve per signup/reset/login) -->
+    <script src="https://unpkg.com/netlify-identity-widget@1/build/netlify-identity-widget.js"></script>
+
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      .helper { padding: 12px 16px; background: #f5f5f5; border-bottom: 1px solid #ddd; }
+      .btn { padding: 8px 12px; border: 1px solid #bbb; border-radius: 10px; background: #fff; cursor: pointer; }
+      .btn + .btn { margin-left: 8px; }
+    </style>
   </head>
+
   <body>
+    <div class="helper">
+      <button class="btn" id="open-login">Login / Iscriviti</button>
+      <button class="btn" id="open-recover">Recupera password</button>
+    </div>
+
     <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.1.0/dist/decap-cms.js"></script>
+
+    <script>
+      // Se il widget non si carica, meglio saperlo subito
+      if (!window.netlifyIdentity) {
+        console.error("Netlify Identity widget NON caricato. Estensioni privacy/adblock possono bloccarlo.");
+      } else {
+        window.netlifyIdentity.init();
+
+        document.getElementById("open-login").addEventListener("click", () => {
+          window.netlifyIdentity.open(); // mostra login + signup (se consentito)
+        });
+
+        document.getElementById("open-recover").addEventListener("click", () => {
+          window.netlifyIdentity.open("login"); // il form login include "forgot password"
+        });
+
+        // Dopo login, ricarica così Decap vede la sessione
+        window.netlifyIdentity.on("login", () => window.location.reload());
+      }
+    </script>
   </body>
 </html>
