@@ -9,9 +9,11 @@ cover_fit: cover
 cover_position: center
 featured: true
 gallery:
-  - layout: left
-    size: md
+  - layout: full
+    size: sm
     image: /images/uploads/sdac001.jpg
     caption: Foto sul set
 ---
 Questo è il testo del primo articolo dello SDAC Magazine.
+
+![](/images/uploads/sdac001.jpg)
