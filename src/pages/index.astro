@@ -3,22 +3,50 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import { getCollection } from "astro:content";
 
-const news = (await getCollection('news')).sort((a,b) => +new Date(b.data.date) - +new Date(a.data.date));
-const anniversari = (await getCollection('anniversari')).sort((a,b) => +new Date(b.data.date) - +new Date(a.data.date));
-const compleanni = (await getCollection('compleanni')).sort((a,b) => +new Date(b.data.date) - +new Date(a.data.date));
+const byDateDesc = (a, b) => +new Date(b.data.date) - +new Date(a.data.date);
 
-const latestNews = news.slice(0,3);
-const latestAnn = anniversari.slice(0,1);
-const latestComp = compleanni.slice(0,1);
+const news = (await getCollection("news")).sort(byDateDesc);
+const anniversari = (await getCollection("anniversari")).sort(byDateDesc);
+const compleanni = (await getCollection("compleanni")).sort(byDateDesc);
+
+// In evidenza (prende da tutte le collections)
+const featured = [...news, ...anniversari, ...compleanni]
+  .filter((e) => e.data.featured)
+  .sort(byDateDesc)
+  .slice(0, 6);
+
+const latestNews = news.slice(0, 3);
+const latestAnn = anniversari.slice(0, 1);
+const latestComp = compleanni.slice(0, 1);
 ---
+
 <BaseLayout title="SDAC Magazine" current="home">
+  {featured.length ? (
+    <section class="card" style="margin-bottom:16px">
+      <div class="pad">
+        <div class="hero-head">
+          <h2>In evidenza</h2>
+          <p class="meta">Il meglio (o almeno il più importante) in home.</p>
+        </div>
+
+        <div class="grid hero-grid">
+          {featured.map((e) => (
+            <ArticleCard entry={e} collection={e.collection} variant="hero" />
+          ))}
+        </div>
+      </div>
+    </section>
+  ) : null}
+
   <div class="grid cols3">
     <section class="card">
       <div class="pad">
         <h2>News</h2>
         <p class="meta">Ultimi aggiornamenti e novità.</p>
         <ul class="list">
-          {latestNews.map((e) => <li><ArticleCard entry={e} collection="news" /></li>)}
+          {latestNews.map((e) => (
+            <li><ArticleCard entry={e} collection="news" /></li>
+          ))}
         </ul>
         <p class="meta" style="margin-top:10px"><a href="/news">Vedi tutte le News →</a></p>
       </div>
@@ -29,7 +57,9 @@ const latestComp = compleanni.slice(0,1);
         <h2>Anniversari</h2>
         <p class="meta">Film che compiono anni (e spesso non li dimostrano).</p>
         <ul class="list">
-          {latestAnn.map((e) => <li><ArticleCard entry={e} collection="anniversari" /></li>)}
+          {latestAnn.map((e) => (
+            <li><ArticleCard entry={e} collection="anniversari" /></li>
+          ))}
         </ul>
         <p class="meta" style="margin-top:10px"><a href="/anniversari">Vedi tutti gli Anniversari →</a></p>
       </div>
@@ -40,10 +70,23 @@ const latestComp = compleanni.slice(0,1);
         <h2>Compleanni</h2>
         <p class="meta">Registi, attori e attrici: oggi si festeggia.</p>
         <ul class="list">
-          {latestComp.map((e) => <li><ArticleCard entry={e} collection="compleanni" /></li>)}
+          {latestComp.map((e) => (
+            <li><ArticleCard entry={e} collection="compleanni" /></li>
+          ))}
         </ul>
         <p class="meta" style="margin-top:10px"><a href="/compleanni">Vedi tutti i Compleanni →</a></p>
       </div>
     </section>
   </div>
+
+  <style>
+    .hero-head { display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; }
+    .hero-grid { display:grid; gap:12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </BaseLayout>
