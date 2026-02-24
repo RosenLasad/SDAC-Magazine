@@ -1,23 +1,98 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
 
-const { entry, collection } = Astro.props as {
-  entry: CollectionEntry<'news'|'anniversari'|'compleanni'>;
-  collection: 'news'|'anniversari'|'compleanni';
+const { entry, collection, variant } = Astro.props as {
+  entry: CollectionEntry<"news" | "anniversari" | "compleanni">;
+  collection: "news" | "anniversari" | "compleanni";
+  variant?: "default" | "hero";
 };
 
 const url = `/${collection}/${entry.slug}`;
-const { title, date, author, excerpt, cover_image } = entry.data;
+
+const {
+  title,
+  date,
+  author,
+  excerpt,
+  cover_image,
+  cover_alt,
+  cover_fit,
+  cover_position,
+} = entry.data;
+
 const d = new Date(date);
-const dateStr = d.toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
+const dateStr = d.toLocaleDateString("it-IT", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const posMap: Record<string, string> = {
+  "center": "50% 50%",
+  "top": "50% 0%",
+  "bottom": "50% 100%",
+  "left": "0% 50%",
+  "right": "100% 50%",
+  "top-left": "0% 0%",
+  "top-right": "100% 0%",
+  "bottom-left": "0% 100%",
+  "bottom-right": "100% 100%",
+};
+
+const objectFit = cover_fit ?? "cover";
+const objectPos = posMap[String(cover_position ?? "center")] ?? "50% 50%";
+
+const imgSrc = cover_image ?? "/images/uploads/placeholder.jpg";
+const imgAlt = cover_alt ?? title ?? "";
+const isHero = variant === "hero";
 ---
-<a class="item" href={url}>
-  <div class="hero">
-    <img src={cover_image ?? '/images/uploads/placeholder.jpg'} alt="" loading="lazy" />
-    <div>
-      <div class="meta"><span class="badge">{collection}</span> · {dateStr} · {author}</div>
-      <div style="font-size:16px; font-weight:700; margin-top:6px">{title}</div>
-      {excerpt ? <div class="meta" style="margin-top:6px">{excerpt}</div> : null}
-    </div>
+
+<a class={`card ${isHero ? "hero" : ""}`} href={url}>
+  <div class="thumb">
+    <img
+      src={imgSrc}
+      alt={imgAlt}
+      loading="lazy"
+      style={`object-fit:${objectFit}; object-position:${objectPos};`}
+    />
   </div>
+
+  <div class="body">
+    <div class="meta">
+      <span class="badge">{collection}</span> · {dateStr} · {author}
+    </div>
+
+    <div class="title">{title}</div>
+
+    {excerpt ? <div class="excerpt">{excerpt}</div> : null}
+  </div>
+
+  <style>
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 140px;
+      border-radius: 14px;
+      display: block;
+      background: #eee;
+    }
+
+    .body { margin-top: 10px; }
+    .title { font-size: 16px; font-weight: 800; line-height: 1.25; margin-top: 6px; }
+    .excerpt { margin-top: 6px; opacity: 0.85; line-height: 1.35; }
+
+    /* Variante hero: più “magazine” */
+    .hero .thumb img { height: 180px; }
+    .hero .title { font-size: 18px; }
+
+    @media (max-width: 560px) {
+      .thumb img { height: 120px; }
+      .hero .thumb img { height: 150px; }
+    }
+  </style>
 </a>
