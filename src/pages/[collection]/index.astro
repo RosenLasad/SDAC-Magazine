@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  return ["news", "anniversari", "compleanni"].map((collection) => ({
+    params: { collection },
+  }));
+}
+
+const { collection } = Astro.params as {
+  collection: "news" | "anniversari" | "compleanni";
+};
+
+const entries = (await getCollection(collection)).sort(
+  (a, b) => +new Date(b.data.date) - +new Date(a.data.date)
+);
+
+const titleMap = {
+  news: "News",
+  anniversari: "Anniversari",
+  compleanni: "Compleanni",
+};
+
+const descMap = {
+  news: "Novità, curiosità, uscite e cose che vale la pena leggere.",
+  anniversari: "I film che compiono anni. Alcuni meglio di noi.",
+  compleanni: "Registi, attori e attrici: oggi si festeggia (o si finge modestia).",
+};
+---
+
+<BaseLayout title={`${titleMap[collection]} | SDAC Magazine`} current={collection}>
+  <section class="card">
+    <div class="pad">
+      <h1 style="margin:0">{titleMap[collection]}</h1>
+      <p class="meta" style="margin-top:6px">{descMap[collection]}</p>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:14px">
+    <div class="pad">
+      <div class="grid">
+        {entries.map((e) => (
+          <ArticleCard entry={e} collection={collection} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>
