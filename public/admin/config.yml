@@ -9,45 +9,93 @@ public_folder: "/images/uploads"
 
 site_url: "https://www.sdacmagazine.com"
 
+# Campi comuni riutilizzabili
+common_fields: &common_fields
+  - { label: "Titolo", name: "title", widget: "string" }
+  - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
+  - { label: "Autore", name: "author", widget: "string", required: false, default: "Redazione SDAC Magazine" }
+  - { label: "Estratto (max 220)", name: "excerpt", widget: "text", required: false }
+
+  # Cover avanzata
+  - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
+  - { label: "ALT copertina (accessibilità/SEO)", name: "cover_alt", widget: "string", required: false }
+  - label: "Cover: adattamento"
+    name: "cover_fit"
+    widget: "select"
+    default: "cover"
+    options:
+      - { label: "Ritaglia (cover)", value: "cover" }
+      - { label: "Non ritagliare (contain)", value: "contain" }
+  - label: "Cover: posizione ritaglio"
+    name: "cover_position"
+    widget: "select"
+    default: "center"
+    options:
+      - { label: "Centro", value: "center" }
+      - { label: "Alto", value: "top" }
+      - { label: "Basso", value: "bottom" }
+      - { label: "Sinistra", value: "left" }
+      - { label: "Destra", value: "right" }
+      - { label: "Alto-sinistra", value: "top-left" }
+      - { label: "Alto-destra", value: "top-right" }
+      - { label: "Basso-sinistra", value: "bottom-left" }
+      - { label: "Basso-destra", value: "bottom-right" }
+
+  - { label: "In evidenza", name: "featured", widget: "boolean", required: false, default: false }
+
+  - label: "Tag"
+    name: "tags"
+    widget: "list"
+    required: false
+    field: { label: "Tag", name: "tag", widget: "string" }
+
+  # Gallery strutturata
+  - label: "Gallery (opzionale)"
+    name: "gallery"
+    widget: "list"
+    required: false
+    summary: "{{fields.caption}}"
+    fields:
+      - { label: "Immagine", name: "image", widget: "image" }
+      - { label: "ALT", name: "alt", widget: "string", required: false }
+      - { label: "Didascalia", name: "caption", widget: "string", required: false }
+      - label: "Layout"
+        name: "layout"
+        widget: "select"
+        default: "full"
+        options:
+          - { label: "Piena larghezza", value: "full" }
+          - { label: "A sinistra", value: "left" }
+          - { label: "A destra", value: "right" }
+      - label: "Dimensione"
+        name: "size"
+        widget: "select"
+        default: "md"
+        options:
+          - { label: "Piccola", value: "sm" }
+          - { label: "Media", value: "md" }
+          - { label: "Grande", value: "lg" }
+
+  - { label: "Testo", name: "body", widget: "markdown" }
+
 collections:
   - name: "news"
     label: "News"
     folder: "src/content/news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Titolo", name: "title", widget: "string" }
-      - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
-      - { label: "Autore", name: "author", widget: "string", required: false }
-      - { label: "Estratto", name: "excerpt", widget: "text", required: false }
-      - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
-      - { label: "Tag", name: "tags", widget: "list", required: false }
-      - { label: "Testo", name: "body", widget: "markdown" }
+    fields: *common_fields
 
   - name: "anniversari"
     label: "Anniversari"
     folder: "src/content/anniversari"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Titolo", name: "title", widget: "string" }
-      - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
-      - { label: "Autore", name: "author", widget: "string", required: false }
-      - { label: "Estratto", name: "excerpt", widget: "text", required: false }
-      - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
-      - { label: "Tag", name: "tags", widget: "list", required: false }
-      - { label: "Testo", name: "body", widget: "markdown" }
+    fields: *common_fields
 
   - name: "compleanni"
     label: "Compleanni"
     folder: "src/content/compleanni"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Titolo", name: "title", widget: "string" }
-      - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
-      - { label: "Autore", name: "author", widget: "string", required: false }
-      - { label: "Estratto", name: "excerpt", widget: "text", required: false }
-      - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
-      - { label: "Tag", name: "tags", widget: "list", required: false }
-      - { label: "Testo", name: "body", widget: "markdown" }
+    fields: *common_fields
