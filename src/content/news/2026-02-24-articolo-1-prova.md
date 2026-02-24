@@ -8,11 +8,7 @@ cover_alt: Logo SDAC
 cover_fit: cover
 cover_position: center
 featured: true
-gallery:
-  - layout: full
-    size: sm
-    image: /images/uploads/sdac001.jpg
-    caption: Foto sul set
+gallery: []
 ---
 Questo è il testo del primo articolo dello SDAC Magazine.
 
