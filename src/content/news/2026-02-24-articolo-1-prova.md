@@ -9,7 +9,7 @@ cover_fit: cover
 cover_position: center
 featured: false
 gallery:
-  - layout: left
+  - layout: full
     size: sm
     image: /images/uploads/sdac001.jpg
 ---
