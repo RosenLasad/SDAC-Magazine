@@ -22,3 +22,21 @@ Questo è il testo del primo articolo dello SDAC Magazine. Vediamo come va.
 </figure>
 
 Questo è il secondo paragrafo del testo dell'articolo.
+
+
+<figure class="article-figure left md">
+  <img src="/images/uploads/Francisco Saia e Frank Twill.jpg" alt="Descrizione immagine" />
+  <figcaption>Didascalia opzionale</figcaption>
+</figure>
+
+
+
+
+Questo è il terzo paragrafo del testo dell'articolo.
+
+
+
+<figure class="article-figure right sm">
+  <img src="/images/uploads/diplomi.jpg" alt="Descrizione immagine" />
+  <figcaption>Didascalia opzionale</figcaption>
+</figure>
