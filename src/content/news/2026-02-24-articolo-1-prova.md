@@ -14,3 +14,11 @@ gallery:
     image: /images/uploads/sdac001.jpg
 ---
 Questo è il testo del primo articolo dello SDAC Magazine. Vediamo come va.
+
+
+<figure class="article-figure full lg">
+  <img src="/images/uploads/locandina.jpg" alt="Descrizione immagine" />
+  <figcaption>Didascalia opzionale</figcaption>
+</figure>
+
+Questo è il secondo paragrafo del testo dell'articolo.
