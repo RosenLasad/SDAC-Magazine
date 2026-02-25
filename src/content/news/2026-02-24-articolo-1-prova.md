@@ -16,7 +16,7 @@ gallery:
 Questo è il testo del primo articolo dello SDAC Magazine. Vediamo come va.
 
 
-<figure class="article-figure full" style="max-width:35%;">
+<figure class="article-figure full" style="max-width:55%;">
   <img src="/images/uploads/locandina.jpg" alt="Descrizione immagine" />
   <figcaption>Locandina film</figcaption>
 </figure>
@@ -24,7 +24,7 @@ Questo è il testo del primo articolo dello SDAC Magazine. Vediamo come va.
 Questo è il secondo paragrafo del testo dell'articolo.
 
 
-<figure class="article-figure left" style="max-width:55%;">
+<figure class="article-figure left" style="max-width:75%;">
   <img src="/images/uploads/Francisco Saia e Frank Twill.jpg" alt="Descrizione immagine" />
   <figcaption>Francisco Saia e Frank Twill</figcaption>
 </figure>
@@ -36,7 +36,7 @@ Questo è il terzo paragrafo del testo dell'articolo.
 
 
 
-<figure class="article-figure right sm">
+<figure class="article-figure right" style="max-width:75%;">
   <img src="/images/uploads/diplomi.jpg" alt="Descrizione immagine" />
   <figcaption>Diplomi</figcaption>
 </figure>
