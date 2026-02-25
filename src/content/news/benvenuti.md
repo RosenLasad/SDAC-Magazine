@@ -29,18 +29,14 @@ Chiudiamo questo 2025 con numeri importanti e con la consapevolezza di aver cost
 
 Grazie a chi continua a credere nella Scuola d’Arte Cinematografica di Genova e buon 2026!
 
-
-
 Alessandro Bellagamba
 
 Direttore SDAC - Scuola D'Arte Cinematografica
-
-
 
 <figure class="article-figure full lg">
 
   <img src="/images/uploads/foto 10 anni SDAC.jpg" alt="Descrizione immagine" />
 
-  <figcaption>Didascalia opzionale</figcaption>
+  <figcaption></figcaption>
 
 </figure>
