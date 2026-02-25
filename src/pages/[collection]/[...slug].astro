@@ -90,13 +90,15 @@ const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine:
     ) : null}
 
 <div class="share-box">
-  <button class="share-btn" type="button" id="share-native">Condividi</button>
-
-  <div class="share-links">
-    <a id="share-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-    <a id="share-email">Email</a>
-    <button class="share-link-btn" type="button" id="share-copy">Copia link</button>
-  </div>
+  <button
+    class="share-btn"
+    type="button"
+    id="share-native"
+    data-share-title={shareTitle}
+    data-share-text={shareText}
+  >
+    Condividi
+  </button>
 
   <p class="share-feedback" id="share-feedback" aria-live="polite"></p>
 </div>
@@ -108,58 +110,37 @@ const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine:
 
 <script is:inline>
   (() => {
-    const pageUrl = window.location.href;
-    const pageTitle = {JSON.stringify(shareTitle)};
-    const pageText = {JSON.stringify(shareText)};
-
-    const btnNative = document.getElementById("share-native");
-    const btnWhatsApp = document.getElementById("share-whatsapp");
-    const btnEmail = document.getElementById("share-email");
-    const btnCopy = document.getElementById("share-copy");
+    const btn = document.getElementById("share-native");
     const feedback = document.getElementById("share-feedback");
 
-    const encodedUrl = encodeURIComponent(pageUrl);
-    const encodedText = encodeURIComponent(`${pageTitle}\n${pageUrl}`);
-    const encodedMailSubject = encodeURIComponent(pageTitle);
-    const encodedMailBody = encodeURIComponent(`${pageText}\n\n${pageUrl}`);
+    if (!btn) return;
 
-    if (btnWhatsApp) {
-      btnWhatsApp.setAttribute("href", `https://wa.me/?text=${encodedText}`);
-    }
+    btn.addEventListener("click", async () => {
+      const pageUrl = window.location.href;
+      const pageTitle = btn.getAttribute("data-share-title") || document.title;
+      const pageText = btn.getAttribute("data-share-text") || pageTitle;
 
-    if (btnEmail) {
-      btnEmail.setAttribute("href", `mailto:?subject=${encodedMailSubject}&body=${encodedMailBody}`);
-    }
-
-    if (btnNative) {
-      btnNative.addEventListener("click", async () => {
-        if (navigator.share) {
-          try {
-            await navigator.share({
-              title: pageTitle,
-              text: pageText,
-              url: pageUrl,
-            });
-            if (feedback) feedback.textContent = "";
-          } catch (err) {
-            // l'utente può annullare, quindi non facciamo drammi
-          }
-        } else {
-          if (feedback) feedback.textContent = "Condivisione nativa non disponibile su questo browser.";
-        }
-      });
-    }
-
-    if (btnCopy) {
-      btnCopy.addEventListener("click", async () => {
+      if (navigator.share) {
         try {
-          await navigator.clipboard.writeText(pageUrl);
-          if (feedback) feedback.textContent = "Link copiato.";
+          await navigator.share({
+            title: pageTitle,
+            text: pageText,
+            url: pageUrl,
+          });
+          if (feedback) feedback.textContent = "";
         } catch (err) {
-          if (feedback) feedback.textContent = "Impossibile copiare il link.";
+          // se l'utente annulla, non facciamo nulla
         }
-      });
-    }
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(pageUrl);
+        if (feedback) feedback.textContent = "Condivisione non disponibile: link copiato.";
+      } catch (err) {
+        if (feedback) feedback.textContent = "Condivisione non disponibile su questo browser.";
+      }
+    });
   })();
 </script>
 
@@ -279,14 +260,14 @@ const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine:
         margin-right: auto;
       }
     }
+
 .share-box {
   margin-top: 24px;
   padding-top: 16px;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.share-btn,
-.share-link-btn {
+.share-btn {
   appearance: none;
   border: 1px solid #ccc;
   background: #fff;
@@ -294,19 +275,6 @@ const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine:
   padding: 10px 14px;
   font: inherit;
   cursor: pointer;
-}
-
-.share-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.share-links a,
-.share-link-btn {
-  text-decoration: none;
-  color: inherit;
 }
 
 .share-feedback {
@@ -317,25 +285,9 @@ const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine:
 }
 
 @media (max-width: 640px) {
-  .share-links {
-    gap: 8px;
-  }
-
-  .share-btn,
-  .share-link-btn {
-    width: 100%;
-  }
-
-  .share-links a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    padding: 10px 14px;
+  .share-btn {
     width: 100%;
   }
 }
-
   </style>
 </BaseLayout>
