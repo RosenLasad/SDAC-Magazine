@@ -1,33 +1,23 @@
 ---
-title: Casting per produzione cinematografica in Veneto
-date: 2026-02-26T21:32:00+01:00
-author: Redazione SDAC Magazine
+title: Casting per il film "Anna".
+date: 2026-02-09T21:36:00+01:00
 cover_image: /images/uploads/CASTING.png
 cover_fit: cover
 cover_position: center
-featured: false
-gallery: []
 ---
-Per una prossima produzione cinematografica in programma in Veneto, diffondiamo la call per trovare una ragazza tra i 12 e i 17 anni.
+La produzione del film Anna cerca attrici e attori per ruoli specifici in vista delle riprese, che si svolgeranno alla Spezia e dintorni dal 15 giugno al 3 luglio 2026.
+
+Ruoli ricercati: 
+
+• Lucia, età scenica 25–30 anni (richiesta capacità di ballare, non a livello professionale)
+
+• Giorgia, età scenica 20–25 anni • Giovanni, età scenica 45–50 anni 
+
+• Giuseppe, età scenica 60–65 anni
+
+L’audizione prevede una breve scena con testo, improntata su naturalezza e semplicità, e una scena senza dialogo per valutare presenza scenica, ascolto e relazione con lo spazio.
+
+Candidature e informazioni: annafilm2026@gmail.com
 
 
-Requisiti richiesti:
--Età compresa tra i 12 e i 17 anni
-
-\-Preferenza per occhi e capelli chiari
-
-\-Non è necessaria esperienza pregressa nella recitazione
-
-\-Possono candidarsi ragazze residenti in tutta Italia
-
-Riprese: aprile – maggio 2026
-
-Per candidare la minore inviare una email a candidature@venetocasting.comSpecificando:
-
-\-Nome, cognome, città di residenza della minore
-
-\-Foto primo piano della minore
-
-\-Contatto dei genitori (numero di telefono e email)
-
-N.B. La Veneto Film Commission non gestirà eventuali candidature, seguire le indicazioni, altri canali di candidatura non verranno presi in considerazione.
+Un’opportunità per prendere parte a una produzione indipendente ambientata in Liguria.
