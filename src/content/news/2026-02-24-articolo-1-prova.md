@@ -13,4 +13,4 @@ gallery:
     size: sm
     image: /images/uploads/sdac001.jpg
 ---
-Questo è il testo del primo articolo dello SDAC Magazine.
+Questo è il testo del primo articolo dello SDAC Magazine. Vediamo come va.
