@@ -50,6 +50,8 @@ const coverPositionKey = entry.data.cover_position ?? "center";
 const coverPosition = posMap[coverPositionKey] ?? "50% 50%";
 
 const gallery = entry.data.gallery ?? [];
+const shareTitle = entry.data.title ?? "SDAC Magazine";
+const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine: ${shareTitle}`;
 ---
 
 <BaseLayout title={pageTitle} current={collection}>
@@ -87,10 +89,79 @@ const gallery = entry.data.gallery ?? [];
       </section>
     ) : null}
 
+<div class="share-box">
+  <button class="share-btn" type="button" id="share-native">Condividi</button>
+
+  <div class="share-links">
+    <a id="share-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    <a id="share-email">Email</a>
+    <button class="share-link-btn" type="button" id="share-copy">Copia link</button>
+  </div>
+
+  <p class="share-feedback" id="share-feedback" aria-live="polite"></p>
+</div>
+
     <p class="meta" style="margin-top:18px">
       <a href={`/${collection}`}>← Torna a {collection}</a>
     </p>
   </article>
+
+<script is:inline>
+  (() => {
+    const pageUrl = window.location.href;
+    const pageTitle = {JSON.stringify(shareTitle)};
+    const pageText = {JSON.stringify(shareText)};
+
+    const btnNative = document.getElementById("share-native");
+    const btnWhatsApp = document.getElementById("share-whatsapp");
+    const btnEmail = document.getElementById("share-email");
+    const btnCopy = document.getElementById("share-copy");
+    const feedback = document.getElementById("share-feedback");
+
+    const encodedUrl = encodeURIComponent(pageUrl);
+    const encodedText = encodeURIComponent(`${pageTitle}\n${pageUrl}`);
+    const encodedMailSubject = encodeURIComponent(pageTitle);
+    const encodedMailBody = encodeURIComponent(`${pageText}\n\n${pageUrl}`);
+
+    if (btnWhatsApp) {
+      btnWhatsApp.setAttribute("href", `https://wa.me/?text=${encodedText}`);
+    }
+
+    if (btnEmail) {
+      btnEmail.setAttribute("href", `mailto:?subject=${encodedMailSubject}&body=${encodedMailBody}`);
+    }
+
+    if (btnNative) {
+      btnNative.addEventListener("click", async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: pageTitle,
+              text: pageText,
+              url: pageUrl,
+            });
+            if (feedback) feedback.textContent = "";
+          } catch (err) {
+            // l'utente può annullare, quindi non facciamo drammi
+          }
+        } else {
+          if (feedback) feedback.textContent = "Condivisione nativa non disponibile su questo browser.";
+        }
+      });
+    }
+
+    if (btnCopy) {
+      btnCopy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(pageUrl);
+          if (feedback) feedback.textContent = "Link copiato.";
+        } catch (err) {
+          if (feedback) feedback.textContent = "Impossibile copiare il link.";
+        }
+      });
+    }
+  })();
+</script>
 
   <style>
     .cover {
@@ -208,5 +279,63 @@ const gallery = entry.data.gallery ?? [];
         margin-right: auto;
       }
     }
+.share-box {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.share-btn,
+.share-link-btn {
+  appearance: none;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.share-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.share-links a,
+.share-link-btn {
+  text-decoration: none;
+  color: inherit;
+}
+
+.share-feedback {
+  margin-top: 10px;
+  min-height: 1.2em;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 640px) {
+  .share-links {
+    gap: 8px;
+  }
+
+  .share-btn,
+  .share-link-btn {
+    width: 100%;
+  }
+
+  .share-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 10px 14px;
+    width: 100%;
+  }
+}
+
   </style>
 </BaseLayout>
