@@ -99,7 +99,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields: *common_fields
 
-    - name: "eventi"
+  - name: "eventi"
     label: "Eventi"
     folder: "src/content/eventi"
     create: true
@@ -176,7 +176,7 @@ collections:
 
       - { label: "Testo", name: "body", widget: "markdown" }
 
-    - name: "cortometraggi"
+  - name: "cortometraggi"
     label: "Cortometraggi"
     folder: "src/content/cortometraggi"
     create: true
