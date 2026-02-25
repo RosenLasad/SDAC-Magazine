@@ -1,6 +1,6 @@
 ---
 title: 'Anniversario: "Qualcuno volò sul nido del cuculo"'
-date: 2026-02-16
+date: 2026-01-13T00:00:00+01:00
 author: Redazione SDAC
 excerpt: ""
 cover_image: /images/uploads/nido-cuculo.jpg
