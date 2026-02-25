@@ -8,13 +8,19 @@ const galleryItem = z.object({
   size: z.enum(['sm', 'md', 'lg']).default('md'),
 });
 
+const shortFilmItem = z.object({
+  title: z.string(),
+  director: z.string().optional(),
+  note: z.string().optional(),
+  youtube_url: z.string().url().optional(),
+});
+
 const baseSchema = z.object({
   title: z.string(),
   date: z.coerce.date(),
   author: z.string().default('Redazione SDAC Magazine'),
   excerpt: z.string().max(220).optional(),
 
-  // Cover migliorata
   cover_image: z.string().optional(),
   cover_alt: z.string().optional(),
   cover_fit: z.enum(['cover', 'contain']).default('cover'),
@@ -24,13 +30,24 @@ const baseSchema = z.object({
 
   tags: z.array(z.string()).optional(),
   featured: z.boolean().default(false),
-
-  // Gallery strutturata
   gallery: z.array(galleryItem).optional(),
+});
+
+const eventSchema = baseSchema.extend({
+  event_date: z.coerce.date().optional(),
+  location: z.string().optional(),
+  registration_url: z.string().url().optional(),
+});
+
+const shortFilmsSchema = baseSchema.extend({
+  academic_year: z.string().optional(),
+  films: z.array(shortFilmItem).optional(),
 });
 
 export const collections = {
   news: defineCollection({ type: 'content', schema: baseSchema }),
   anniversari: defineCollection({ type: 'content', schema: baseSchema }),
   compleanni: defineCollection({ type: 'content', schema: baseSchema }),
+  eventi: defineCollection({ type: 'content', schema: eventSchema }),
+  cortometraggi: defineCollection({ type: 'content', schema: shortFilmsSchema }),
 };
