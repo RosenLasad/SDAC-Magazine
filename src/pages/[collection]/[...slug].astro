@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const collections = ["news", "anniversari", "compleanni"];
+  const collections = ["news", "anniversari", "compleanni", "eventi", "cortometraggi"];
 
   const all = await Promise.all(
     collections.map(async (c) => {
