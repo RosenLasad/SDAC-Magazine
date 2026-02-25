@@ -148,5 +148,68 @@ const gallery = entry.data.gallery ?? [];
       .gitem.left, .gitem.right { align-self: center; }
       .gitem.sm, .gitem.md, .gitem.lg { max-width: 100%; }
     }
-  </style>
+.prose :global(.article-figure) {
+  margin: 18px 0;
+}
+
+.prose :global(.article-figure img) {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  background: #eee;
+}
+
+.prose :global(.article-figure figcaption) {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin-top: 8px;
+  line-height: 1.35;
+}
+
+.prose :global(.article-figure.full) {
+  width: 100%;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prose :global(.article-figure.left) {
+  width: 100%;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.prose :global(.article-figure.right) {
+  width: 100%;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.prose :global(.article-figure.sm) {
+  max-width: 420px;
+}
+
+.prose :global(.article-figure.md) {
+  max-width: 620px;
+}
+
+.prose :global(.article-figure.lg) {
+  max-width: 980px;
+}
+
+@media (max-width: 640px) {
+  .prose :global(.article-figure.full),
+  .prose :global(.article-figure.left),
+  .prose :global(.article-figure.right),
+  .prose :global(.article-figure.sm),
+  .prose :global(.article-figure.md),
+  .prose :global(.article-figure.lg) {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+</style>
 </BaseLayout>
