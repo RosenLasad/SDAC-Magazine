@@ -7,7 +7,7 @@ cover_image: /images/uploads/sdac-logo-orizz-nero-su-bianco.jpg
 cover_alt: Logo SDAC
 cover_fit: cover
 cover_position: center
-featured: true
+featured: false
 gallery:
   - layout: full
     size: sm
