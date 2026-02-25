@@ -1,10 +1,13 @@
 ---
 const { current = '' } = Astro.props;
 const links = [
-  { href: '/', label: 'Home', key: 'home' },
-  { href: '/news', label: 'News', key: 'news' },
-  { href: '/anniversari', label: 'Anniversari', key: 'anniversari' },
-  { href: '/compleanni', label: 'Compleanni', key: 'compleanni' },
+  { href: '/', label: 'Home', key: 'home', external: false },
+  { href: '/news', label: 'News', key: 'news', external: false },
+  { href: '/anniversari', label: 'Anniversari', key: 'anniversari', external: false },
+  { href: '/compleanni', label: 'Compleanni', key: 'compleanni', external: false },
+  { href: '/cortometraggi', label: 'Cortometraggi', key: 'cortometraggi', external: false },
+  { href: '/eventi', label: 'Eventi', key: 'eventi', external: false },
+  { href: 'https://www.sdac.it', label: 'La scuola', key: 'la-scuola', external: true },
 ];
 ---
 <header class="topbar">
@@ -19,8 +22,17 @@ const links = [
 
     <nav class="navrow" aria-label="Categorie">
       {links.map((l) => (
-        <a class="btn" href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a>
+        <a
+          class="btn"
+          href={l.href}
+          aria-current={!l.external && current === l.key ? 'page' : undefined}
+          target={l.external ? "_blank" : undefined}
+          rel={l.external ? "noopener noreferrer" : undefined}
+        >
+          {l.label}
+        </a>
       ))}
+
       <form class="search" action="/search" role="search" aria-label="Ricerca nel sito">
         <span class="icon" aria-hidden="true">🔎</span>
         <input name="q" type="search" placeholder="Cerca titoli, nomi, tag…" />
