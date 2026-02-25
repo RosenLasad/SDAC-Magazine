@@ -9,16 +9,15 @@ public_folder: "/images/uploads"
 
 site_url: "https://www.sdacmagazine.com"
 
-# Campi comuni riutilizzabili
 common_fields: &common_fields
   - { label: "Titolo", name: "title", widget: "string" }
   - { label: "Data", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
   - { label: "Autore", name: "author", widget: "string", required: false, default: "Redazione SDAC Magazine" }
   - { label: "Estratto (max 220)", name: "excerpt", widget: "text", required: false }
 
-  # Cover avanzata
   - { label: "Immagine copertina", name: "cover_image", widget: "image", required: false }
   - { label: "ALT copertina (accessibilità/SEO)", name: "cover_alt", widget: "string", required: false }
+
   - label: "Cover: adattamento"
     name: "cover_fit"
     widget: "select"
@@ -26,6 +25,7 @@ common_fields: &common_fields
     options:
       - { label: "Ritaglia (cover)", value: "cover" }
       - { label: "Non ritagliare (contain)", value: "contain" }
+
   - label: "Cover: posizione ritaglio"
     name: "cover_position"
     widget: "select"
@@ -49,7 +49,6 @@ common_fields: &common_fields
     required: false
     field: { label: "Tag", name: "tag", widget: "string" }
 
-  # Gallery strutturata
   - label: "Gallery (opzionale)"
     name: "gallery"
     widget: "list"
@@ -99,3 +98,33 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields: *common_fields
+
+  - name: "eventi"
+    label: "Eventi"
+    folder: "src/content/eventi"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - *common_fields
+      - { label: "Data evento", name: "event_date", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "Luogo", name: "location", widget: "string", required: false }
+      - { label: "Link iscrizione/info", name: "registration_url", widget: "string", required: false }
+
+  - name: "cortometraggi"
+    label: "Cortometraggi"
+    folder: "src/content/cortometraggi"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - *common_fields
+      - { label: "Anno accademico", name: "academic_year", widget: "string", required: false, hint: "Es. 2025/2026" }
+      - label: "Elenco cortometraggi"
+        name: "films"
+        widget: "list"
+        required: false
+        summary: "{{fields.title}}"
+        fields:
+          - { label: "Titolo corto", name: "title", widget: "string" }
+          - { label: "Regia", name: "director", widget: "string", required: false }
+          - { label: "Nota breve", name: "note", widget: "text", required: false }
+          - { label: "Link YouTube", name: "youtube_url", widget: "string", required: false }
