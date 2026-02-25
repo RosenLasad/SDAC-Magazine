@@ -5,7 +5,7 @@ author: Redazione SDAC
 excerpt: ""
 cover_image: /images/uploads/jonhn-mc-tiernan.jpg
 cover_fit: cover
-cover_position: center
+cover_position: top
 tags:
   - cinema
 ---
