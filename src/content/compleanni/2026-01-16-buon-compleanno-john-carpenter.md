@@ -1,5 +1,5 @@
 ---
-title: Buon compleanno John Carpenter!
+title: "Buon compleanno John Carpenter: 78 anni!"
 date: 2026-01-16T21:05:00+01:00
 author: Redazione SDAC Magazine
 cover_image: /images/uploads/john-carpenter.jpg
