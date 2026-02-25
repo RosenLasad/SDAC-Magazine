@@ -3,7 +3,7 @@ title: "Buon compleanno John McTiernan: 75 anni!"
 date: 2026-02-20
 author: Redazione SDAC
 excerpt: ""
-cover_image: /images/uploads/placeholder.jpg
+cover_image: /images/uploads/jonhn-mc-tiernan.jpg
 cover_fit: cover
 cover_position: center
 tags:
