@@ -3,7 +3,7 @@ title: SDAC compie 10 anni e non si ferma
 date: 2025-12-31T00:00:00+01:00
 author: Alessandro SDAC
 excerpt: ""
-cover_image: /images/uploads/placeholder.jpg
+cover_image: ""
 cover_fit: cover
 cover_position: center
 tags:
