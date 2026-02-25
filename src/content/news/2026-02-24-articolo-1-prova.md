@@ -16,7 +16,7 @@ gallery:
 Questo è il testo del primo articolo dello SDAC Magazine. Vediamo come va.
 
 
-<figure class="article-figure full" style="max-width:55%;">
+<figure class="article-figure full" style="max-width:85%;">
   <img src="/images/uploads/locandina.jpg" alt="Descrizione immagine" />
   <figcaption>Locandina film</figcaption>
 </figure>
