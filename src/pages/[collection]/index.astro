@@ -4,7 +4,7 @@ import ArticleCard from "../../components/ArticleCard.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  return ["news", "anniversari", "compleanni"].map((collection) => ({
+  return ["news", "anniversari", "compleanni", "eventi", "cortometraggi"].map((collection) => ({
     params: { collection },
   }));
 }
@@ -21,12 +21,16 @@ const titleMap = {
   news: "News",
   anniversari: "Anniversari",
   compleanni: "Compleanni",
+  cortometraggi: "Cortometraggi",
+  eventi: "Eventi",
 };
 
 const descMap = {
   news: "Novità, curiosità, uscite e cose che vale la pena leggere.",
   anniversari: "I film che compiono anni. Alcuni meglio di noi.",
   compleanni: "Registi, attori e attrici: oggi si festeggia (o si finge modestia).",
+  cortometraggi: "Archivio dei cortometraggi realizzati dagli allievi, anno per anno.",
+  eventi: "Prossimi eventi, corsi, workshop e iniziative della scuola.",
 };
 ---
 
