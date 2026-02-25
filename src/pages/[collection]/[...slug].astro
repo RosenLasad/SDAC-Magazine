@@ -30,7 +30,6 @@ const dateStr = d.toLocaleDateString("it-IT", {
 
 const pageTitle = `${entry.data.title} | SDAC Magazine`;
 
-// Cover options (nuovi campi)
 const coverSrc = entry.data.cover_image ?? null;
 const coverAlt = entry.data.cover_alt ?? entry.data.title ?? "";
 const coverFit = entry.data.cover_fit ?? "cover";
@@ -50,9 +49,9 @@ const posMap = {
 const coverPositionKey = entry.data.cover_position ?? "center";
 const coverPosition = posMap[coverPositionKey] ?? "50% 50%";
 
-// Gallery (nuovo campo)
 const gallery = entry.data.gallery ?? [];
 ---
+
 <BaseLayout title={pageTitle} current={collection}>
   <article class="article">
     <div class="meta">
@@ -133,12 +132,10 @@ const gallery = entry.data.gallery ?? [];
       line-height: 1.35;
     }
 
-    /* Layout (non “wrap col testo”, ma allineamento pulito) */
     .gitem.full { align-self: center; max-width: 980px; width: 100%; }
     .gitem.left { align-self: flex-start; }
     .gitem.right { align-self: flex-end; }
 
-    /* Size */
     .gitem.sm { max-width: 420px; width: 100%; }
     .gitem.md { max-width: 620px; width: 100%; }
     .gitem.lg { max-width: 980px; width: 100%; }
@@ -148,68 +145,68 @@ const gallery = entry.data.gallery ?? [];
       .gitem.left, .gitem.right { align-self: center; }
       .gitem.sm, .gitem.md, .gitem.lg { max-width: 100%; }
     }
-.prose :global(.article-figure) {
-  margin: 18px 0;
-}
 
-.prose :global(.article-figure img) {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 14px;
-  background: #eee;
-}
+    .prose :global(.article-figure) {
+      margin: 18px 0;
+    }
 
-.prose :global(.article-figure figcaption) {
-  font-size: 0.95rem;
-  opacity: 0.85;
-  margin-top: 8px;
-  line-height: 1.35;
-}
+    .prose :global(.article-figure img) {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 14px;
+      background: #eee;
+    }
 
-.prose :global(.article-figure.full) {
-  width: 100%;
-  max-width: 980px;
-  margin-left: auto;
-  margin-right: auto;
-}
+    .prose :global(.article-figure figcaption) {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-top: 8px;
+      line-height: 1.35;
+    }
 
-.prose :global(.article-figure.left) {
-  width: 100%;
-  margin-left: 0;
-  margin-right: auto;
-}
+    .prose :global(.article-figure.full) {
+      width: 100%;
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-.prose :global(.article-figure.right) {
-  width: 100%;
-  margin-left: auto;
-  margin-right: 0;
-}
+    .prose :global(.article-figure.left) {
+      width: 100%;
+      margin-left: 0;
+      margin-right: auto;
+    }
 
-.prose :global(.article-figure.sm) {
-  max-width: 420px;
-}
+    .prose :global(.article-figure.right) {
+      width: 100%;
+      margin-left: auto;
+      margin-right: 0;
+    }
 
-.prose :global(.article-figure.md) {
-  max-width: 620px;
-}
+    .prose :global(.article-figure.sm) {
+      max-width: 420px;
+    }
 
-.prose :global(.article-figure.lg) {
-  max-width: 980px;
-}
+    .prose :global(.article-figure.md) {
+      max-width: 620px;
+    }
 
-@media (max-width: 640px) {
-  .prose :global(.article-figure.full),
-  .prose :global(.article-figure.left),
-  .prose :global(.article-figure.right),
-  .prose :global(.article-figure.sm),
-  .prose :global(.article-figure.md),
-  .prose :global(.article-figure.lg) {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+    .prose :global(.article-figure.lg) {
+      max-width: 980px;
+    }
 
-</style>
+    @media (max-width: 640px) {
+      .prose :global(.article-figure.full),
+      .prose :global(.article-figure.left),
+      .prose :global(.article-figure.right),
+      .prose :global(.article-figure.sm),
+      .prose :global(.article-figure.md),
+      .prose :global(.article-figure.lg) {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
 </BaseLayout>
