@@ -4,7 +4,7 @@ date: 2026-01-14T20:58:00+01:00
 author: Redazione SDAC Magazine
 cover_image: /images/uploads/scanners.jpg
 cover_fit: cover
-cover_position: center
+cover_position: top
 featured: false
 gallery: []
 ---
