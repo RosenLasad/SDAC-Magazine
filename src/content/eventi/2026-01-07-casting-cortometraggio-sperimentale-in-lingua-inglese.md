@@ -3,7 +3,7 @@ title: "Casting: cortometraggio sperimentale in lingua inglese"
 date: 2026-01-07T21:27:00+01:00
 author: Redazione SDAC Magazine
 cover_image: /images/uploads/casting.png
-cover_fit: contain
+cover_fit: cover
 cover_position: center
 featured: false
 gallery: []
