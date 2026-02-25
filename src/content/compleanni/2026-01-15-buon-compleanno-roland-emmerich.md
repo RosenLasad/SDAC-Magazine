@@ -1,5 +1,5 @@
 ---
-title: Buon compleanno Roland Emmerich!
+title: "Buon compleanno Roland Emmerich: 71 anni!"
 date: 2026-01-15T20:59:00+01:00
 author: Redazione SDAC Magazine
 cover_image: /images/uploads/roland-emmerich.jpg
