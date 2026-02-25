@@ -91,14 +91,15 @@ const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine:
 
 <div class="share-box">
   <button
-    class="share-btn"
-    type="button"
-    id="share-native"
-    data-share-title={shareTitle}
-    data-share-text={shareText}
-  >
-    Condividi
-  </button>
+  class="share-btn"
+  type="button"
+  id="share-native"
+  data-share-title={shareTitle}
+  data-share-text={shareText}
+>
+  <span class="share-icon" aria-hidden="true">↗</span>
+  <span>Condividi</span>
+</button>
 
   <p class="share-feedback" id="share-feedback" aria-live="polite"></p>
 </div>
@@ -275,6 +276,14 @@ const shareText = entry.data.excerpt ?? `Leggi questo articolo su SDAC Magazine:
   padding: 10px 14px;
   font: inherit;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.share-icon {
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .share-feedback {
